@@ -1,6 +1,6 @@
 from clusterga.fitness import FitnessInterface
 from numpy import ndarray, copy
-from clusterga.utils import Random
+import random as Random
 
 
 class Individual:

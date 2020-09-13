@@ -1,3 +1,6 @@
+import random as Random
+
+
 class SelectionInterface:
 
     def __init__(self, population, random):

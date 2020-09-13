@@ -1,7 +1,7 @@
 from numpy import ndarray, delete, vstack
 
 from clusterga.population import Individual
-from clusterga.utils import Random
+import random as Random
 
 
 class MutationInterface:

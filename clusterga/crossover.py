@@ -1,7 +1,7 @@
 from typing import Tuple
 from numpy import hstack, copy
 from clusterga.population import Individual
-from clusterga.utils import Random
+import random as Random
 
 
 class CrossoverInterface:
