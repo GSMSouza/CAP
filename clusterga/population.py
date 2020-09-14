@@ -1,14 +1,17 @@
 from clusterga.fitness import FitnessInterface
 from numpy import ndarray, copy
 import random as Random
+import numpy as np
+from sklearn.metrics import pairwise_distances_argmin
 
 
 class Individual:
-
     fitness: FitnessInterface
+    samples: ndarray
 
     def __init__(self, chromosome: ndarray):
         self.__chromosome = copy(chromosome)
+        self.atualization_centers()
         self.value = self.fitness.calculate(chromosome)
 
     @property
@@ -18,7 +21,20 @@ class Individual:
     @chromosome.setter
     def chromosome(self, chromosome: ndarray):
         self.__chromosome = copy(chromosome)
+        self.atualization_centers()
         self.value = self.fitness.calculate(chromosome)
+
+    def atualization_centers(self):
+        new_centers = []
+        labels = pairwise_distances_argmin(self.samples, self.__chromosome)
+        n_labels = self.__chromosome.shape[0]
+        for k in range(n_labels):
+            cluster_k = self.samples[labels == k]
+            if cluster_k.shape[0] == 0:
+                continue
+            mean_k = np.mean(cluster_k, axis=0)
+            new_centers.append(mean_k)
+        self.__chromosome = np.array(new_centers)
 
     def __str__(self):
         return "Individual: \nchromosome: \n{}\nvalue: {}\n".format(self.__chromosome, self.value)
@@ -40,6 +56,7 @@ class PopulationInterface:
         self.individuals = sorted(self.individuals, key=lambda x: x.value, reverse=True)
 
     def next_gen(self, children):
+
         self.individuals += children
         self.sort()
         self.individuals = self.individuals[:self.size]
@@ -71,7 +88,7 @@ class PopulationForSamples(PopulationInterface):
             selects = copy(
                 self.samples[self.random.choices(range(
                     self.samples.shape[0]),
-                    self.random.randint(
+                    k=self.random.randint(
                         2, max_groups
                     )
                 )]

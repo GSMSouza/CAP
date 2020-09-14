@@ -63,9 +63,9 @@ class Tournament(SelectionInterface):
         super().__init__(population, random)
 
     def select(self, n, individual, n_tournament=4):
-        best = self.population[self.random.randint(0, self.population.size)]
+        best = self.population[self.random.randint(0, self.population.size-1)]
         for i in range(n_tournament-1):
-            n = self.random.randint(0, self.population.size)
+            n = self.random.randint(0, self.population.size-1)
             if self.population[n].value > best.value:
                 best = self.population[n]
         else:

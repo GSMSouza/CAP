@@ -15,7 +15,7 @@ def ga(samples, fitness_function="CalinskiHarabaz", gen=100, size_pop=40, p_cros
 
     random.seed(seed)
     mutation = crossover = population = selection = cluster = fitness = None
-
+    Individual.samples = samples
     if type(mutation_operator) is MutationInterface:
         mutation = mutation_operator
     else:
