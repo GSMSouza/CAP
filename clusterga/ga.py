@@ -6,6 +6,7 @@ from clusterga.cluster import ClusterInterface
 from clusterga.mutation import MutationInterface
 from clusterga.selection import SelectionInterface
 from clusterga import dict_factory as dic
+from clusterga.visualization import plot_history
 
 
 def ga(samples, fitness_function="CalinskiHarabaz", gen=100, size_pop=40, p_crossover=0.5, p_mutation=0.1,
@@ -79,4 +80,5 @@ def ga(samples, fitness_function="CalinskiHarabaz", gen=100, size_pop=40, p_cros
             mean.append(population.sum_value / population.size)
             best.append(population[0].value)
     else:
+        plot_history(best, mean)
         return population[0]

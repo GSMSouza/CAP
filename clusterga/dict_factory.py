@@ -1,7 +1,7 @@
 from clusterga.crossover import OnePoint
 from clusterga.mutation import CreateOrDelete
 from clusterga.population import PopulationForSamples
-from clusterga.selection import Roulette, Elitism
+from clusterga.selection import Roulette, Elitism, Tournament
 from clusterga.fitness import CalinskiHarabaz, DaviesBouldin, SumSquaredError, FPC
 from clusterga.cluster import Pairwise, FuzzyCMeans
 
@@ -15,7 +15,8 @@ crossover = {
 
 selection = {
     "Roulette": Roulette,
-    "Elitism": Elitism
+    "Elitism": Elitism,
+    "Tournament": Tournament
 }
 
 population = {
