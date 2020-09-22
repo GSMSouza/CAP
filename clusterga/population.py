@@ -97,3 +97,47 @@ class PopulationForSamples(PopulationInterface):
             self.sum_value += self.individuals[-1].value
         else:
             self.sort()
+
+
+class BalancedPopulationForSamples(PopulationInterface):
+
+    def __init__(self, samples: ndarray, random: Random):
+        super().__init__(samples, random)
+
+    def start(self, size: int, max_groups: int):
+        self.size = size
+        aux_balance = 1
+        for i in range(size):
+            if i % (size//max_groups) == 0:
+                aux_balance += 1
+            selects = copy(
+                self.samples[self.random.choices(range(
+                    self.samples.shape[0]),
+                    k=aux_balance
+                )]
+            )
+            self.individuals.append(Individual(selects))
+            self.sum_value += self.individuals[-1].value
+        else:
+            self.sort()
+
+
+class PopulationForRandom(PopulationInterface):
+
+    def __init__(self, samples: ndarray, random: Random):
+        super().__init__(samples, random)
+
+    def start(self, size: int, max_groups: int):
+        self.size = size
+
+        for _ in range(size):
+            selects = np.array([
+                np.array(
+                    [self.random.random for _ in range(self.samples.shape[1])]
+                ) for _ in range(self.random.randint(2, max_groups)+1)
+            ])
+
+            self.individuals.append(Individual(selects))
+            self.sum_value += self.individuals[-1].value
+        else:
+            self.sort()

@@ -1,6 +1,6 @@
-from clusterga.crossover import OnePoint
+from clusterga.crossover import OnePoint, Merge
 from clusterga.mutation import CreateOrDelete
-from clusterga.population import PopulationForSamples
+from clusterga.population import PopulationForSamples, BalancedPopulationForSamples, PopulationForRandom
 from clusterga.selection import Roulette, Elitism, Tournament
 from clusterga.fitness import CalinskiHarabaz, DaviesBouldin, SumSquaredError, FPC
 from clusterga.cluster import Pairwise, FuzzyCMeans
@@ -10,7 +10,8 @@ mutation = {
 }
 
 crossover = {
-    "OnePoint": OnePoint
+    "OnePoint": OnePoint,
+    "Merge": Merge
 }
 
 selection = {
@@ -20,7 +21,9 @@ selection = {
 }
 
 population = {
-    "SamplesSelect": PopulationForSamples
+    "SamplesSelect": PopulationForSamples,
+    "BalancedPopulationForSamples": BalancedPopulationForSamples,
+    "PopulationForRandom": PopulationForRandom
 }
 
 fitness = {

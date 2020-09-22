@@ -100,7 +100,7 @@ class SumSquaredError(FitnessInterface):
         for k in range(chromosome.shape[0]):
             members = self.samples[k == labels]
             sse += (linalg.norm(members - chromosome[k], axis=0) ** 2).sum()
-        return 1 / sse
+        return 1 / (sse*chromosome.shape[0])
 
 
 class FPC(FitnessInterface):

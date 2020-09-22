@@ -80,5 +80,5 @@ def ga(samples, fitness_function="CalinskiHarabaz", gen=100, size_pop=40, p_cros
             mean.append(population.sum_value / population.size)
             best.append(population[0].value)
     else:
-        plot_history(best, mean)
+        plot_history(best, mean, fitness_function)
         return population[0]
